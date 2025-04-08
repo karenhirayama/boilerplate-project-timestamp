@@ -20,7 +20,7 @@
 
       <h2>Example Output:</h2>
       <p>
-        <code>{"unix":1451001600000, "utc":"Fri, 25 Dec 2015 00:00:00 GMT"}</code>
+        <code id="code"></code>
       </p>
     </div>
     <div class="footer">
@@ -30,3 +30,14 @@
     </div>
   </body>
 </html>
+
+<script>
+
+  let newDate = new Date()
+  let unixDate = newDate.getTime()
+  let utcDate = newDate.toString()
+
+  const codeElement = document.getElementById("code")
+  codeElement.innerHTML = `{"unix": ${unixDate}, "utc": ${utcDate}}`
+
+</script>
