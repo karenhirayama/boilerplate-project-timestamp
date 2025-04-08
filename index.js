@@ -24,26 +24,29 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
-app.get("/api/:date", function (req, res) {
+app.get("/api/:date?", function (req, res) {
   let date = req.params.date;
-  if (typeof Number(date) === "number") {
+
+  let newDate = new Date(date);
+
+  if (req.params.date !== "" || req.params.date !== undefined) {
+    newDate = new Date();
+  }
+
+  if (isNaN(newDate)) {
     date = Number(date);
+    newDate = new Date(date);
+
+    if (isNaN(newDate)) {
+      return res.send("Invalid Date");
+    }
   }
+  const utc = new Date(newDate.getTime() + newDate.getTimezoneOffset() * 60000);
 
-  const newDate = new Date(date);
-
-  if (newDate === "Invalid Date") {
-    res.send("Invalid Date");
-  } else {
-    const utc = new Date(
-      newDate.getTime() + newDate.getTimezoneOffset() * 60000
-    );
-
-    res.send({
-      unix: newDate.getTime(),
-      utc: newDate.toString(),
-    });
-  }
+  return res.send({
+    unix: newDate.getTime(),
+    utc: newDate.toString(),
+  });
 });
 
 
