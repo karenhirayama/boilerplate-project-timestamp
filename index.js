@@ -38,12 +38,12 @@ app.get("/api/:date?", function (req, res) {
     newDate = new Date(date);
 
     if (isNaN(newDate)) {
-      return res.send("Invalid Date");
+      return res.json({ error: "Invalid Date" });
     }
   }
   const utc = new Date(newDate.getTime() + newDate.getTimezoneOffset() * 60000);
 
-  return res.send({
+  return res.json({
     unix: newDate.getTime(),
     utc: newDate.toString(),
   });
