@@ -28,12 +28,12 @@ app.get("/api/:date?", function (req, res) {
   const dateParam = req.params.date;
   const dateObj = new Date(dateParam);
 
-  if (isNaN(dateObject.getTime())) {
+  if (isNaN(dateObj.getTime())) {
     return res.json({ error: "Invalid Date" });
   }
 
-  const unixTimeStamp = dateObject.getTime();
-  const utcString = dateObject.toUTCString();
+  const unixTimeStamp = dateObj.getTime();
+  const utcString = dateObj.toUTCString();
 
   res.json({ unix: unixTimeStamp, utc: utcString }); 
 });
